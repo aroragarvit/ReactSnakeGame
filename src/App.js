@@ -18,47 +18,49 @@ const App = () => {
   ]);
   const [direction, setDirection] = useState("right");
 
-  document.onkeydown = setKey; // event listener to check key press
-  function setKey(e) {
-    e = e || window.event;
-    switch (e.keyCode) {
-      case 37:
+  document.addEventListener("keydown", (e) => {
+    switch (e.key) {
+      case "ArrowLeft":
         setDirection("left");
         break;
-      case 38:
+      case "ArrowUp":
         setDirection("up");
+        console.log("up");
         break;
-      case 39:
+      case "ArrowRight":
         setDirection("right");
+        console.log("right");
         break;
-      case 40:
+      case "ArrowDown":
         setDirection("down");
+        console.log("down");
         break;
     }
-  }
+  });
+
   const moveSnake = () => {
-    const dots = snakeDots;
-    const head = dots[dots.length - 1];
+    let dots = snakeDots;
+    let head = dots[dots.length - 1];
     switch (direction) {
       case "left":
-        dots.push([head[0] - 2, head[1]]); // according to our code right and down addition is there
+        head = [head[0] - 2, head[1]]; // according to our code right and down addition is there
         break;
       case "right":
-        dots.push([head[0] + 2, head[1]]);
+        head = [head[0] + 2, head[1]];
         break;
       case "up":
-        dots.push([head[0], head[1] - 2]);
+        head = [head[0], head[1] - 2];
         break;
       case "down":
-        dots.push([head[0], head[1] + 2]);
+        head = [head[0], head[1] + 2];
     }
     dots.push(head);
     dots.shift();
     setSnakeDots(dots);
   };
-  useEffect(() => {
-    setInterval(moveSnake, 200);
-  }, [direction]);
+  setInterval(() => {
+    moveSnake();
+  }, 300);
   return (
     <div
       style={{
@@ -69,6 +71,7 @@ const App = () => {
         border: "2px solid #000",
       }}
     >
+      <p> {direction}</p>
       <Snake snakeDots={snakeDots} />
       <Food food={food} />
     </div>
