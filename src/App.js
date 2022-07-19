@@ -40,10 +40,11 @@ const App = () => {
     }
   });
 
-  const moveSnake = () => {
-    let dots = snakeDots;
-    console.log("dots:", dots);
+  let moveSnake = () => {
+    let dots = [...snakeDots];
+
     let head = dots[dots.length - 1];
+
     switch (direction) {
       case "left":
         head = [head[0] - 2, head[1]]; // according to our code right and down addition is there
@@ -56,12 +57,16 @@ const App = () => {
         break;
       case "down":
         head = [head[0], head[1] + 2];
+        break;
     }
     dots.push(head);
     dots.shift();
     setSnakeDots(dots);
-    console.log("snakeDots:", snakeDots);
   };
+
+  useEffect(() => {
+    setTimeout(() => moveSnake(), 300);
+  }, [snakeDots]);
 
   return (
     <div
@@ -74,12 +79,17 @@ const App = () => {
       }}
     >
       {/* <First></First>*/}
-      <p> {direction}</p>
 
       <Snake snakeDots={snakeDots} />
-
+      {/* snakeDots is passing to child when i am changing direction only*/}
       <Food food={food} />
-      <button onClick={moveSnake}>Move</button>
+      <button
+        onClick={() => {
+          moveSnake();
+        }}
+      >
+        Move
+      </button>
     </div>
   );
 };
