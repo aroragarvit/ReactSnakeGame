@@ -22,6 +22,7 @@ const Snake = ({ snakeDots }) => {
           ></div>
         );
       })}
+      <p>{snakeDots}</p>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import Snake from "./Snake";
 import Food from "./Food";
+import First from "./First";
 import { useEffect, useState } from "react";
 
 const App = () => {
@@ -18,28 +19,30 @@ const App = () => {
   ]);
   const [direction, setDirection] = useState("right");
 
-  document.addEventListener("keydown", (e) => {
+  document.addEventListener("keyup", (e) => {
     switch (e.key) {
       case "ArrowLeft":
         setDirection("left");
         break;
       case "ArrowUp":
         setDirection("up");
-        console.log("up");
+
         break;
       case "ArrowRight":
         setDirection("right");
-        console.log("right");
+
         break;
       case "ArrowDown":
         setDirection("down");
-        console.log("down");
+
         break;
+      default:
     }
   });
 
   const moveSnake = () => {
     let dots = snakeDots;
+    console.log("dots:", dots);
     let head = dots[dots.length - 1];
     switch (direction) {
       case "left":
@@ -57,10 +60,9 @@ const App = () => {
     dots.push(head);
     dots.shift();
     setSnakeDots(dots);
+    console.log("snakeDots:", snakeDots);
   };
-  setInterval(() => {
-    moveSnake();
-  }, 300);
+
   return (
     <div
       style={{
@@ -71,9 +73,13 @@ const App = () => {
         border: "2px solid #000",
       }}
     >
+      {/* <First></First>*/}
       <p> {direction}</p>
+
       <Snake snakeDots={snakeDots} />
+
       <Food food={food} />
+      <button onClick={moveSnake}>Move</button>
     </div>
   );
 };
