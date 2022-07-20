@@ -1,6 +1,8 @@
+import Client from "./Client";
 import Snake from "./Snake";
 import Food from "./Food";
 import First from "./First";
+
 import { useEffect, useState } from "react";
 
 const App = () => {
@@ -69,7 +71,13 @@ const App = () => {
   }, [snakeDots]);
 
   return (
-    <div
+    <div>
+      <Client></Client>
+    </div>
+  );
+};
+{
+  /* <div
       style={{
         position: "relative",
         margin: "50px auto",
@@ -78,20 +86,15 @@ const App = () => {
         border: "2px solid #000",
       }}
     >
-      {/* <First></First>*/}
+      <First></First>
+      <Client></Client>
 
       <Snake snakeDots={snakeDots} />
-      {/* snakeDots is passing to child when i am changing direction only*/}
+
       <Food food={food} />
-      <button
-        onClick={() => {
-          moveSnake();
-        }}
-      >
-        Move
-      </button>
     </div>
   );
-};
+}; */
+}
 
 export default App;

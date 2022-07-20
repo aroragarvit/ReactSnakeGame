@@ -2,20 +2,23 @@ import io from "socket.io-client";
 import { useState, useEffect } from "react";
 const socket = io("http://localhost:3001");
 
-let gameCode = "";
+let gameCode = ""
 
 socket.on("gameCode", (roomName) => {
   console.log("Room name is", roomName);
   gameCode = roomName;
 });
 
-socket.on("connectToRoom", (roomName) => {
-  console.log("You are in room name", roomName);
+
+socket.on("connectToRoom", (data) => {
+  console.log(`${data.socketId} connected to room ${data.roomName}`);
 });
+
 
 function newGame() {
   socket.emit("newGame");
 }
+
 function joinGame() {
   socket.emit("joinGame", document.getElementById("gameCodeInput").value);
 }
@@ -58,13 +61,8 @@ const Client = () => {
           </div>
         </div>
 
-        <div id="gameScreen" className="h-100">
-          <div className="d-flex flex-column align-items-center justify-content-center h-100">
-            <h1>
-              Your game code is: <span>{gameCode}</span>
-            </h1>
-          </div>
-        </div>
+
+      <p>{gameCode} </p>
       </div>
     </section>
   );
