@@ -1,9 +1,11 @@
 import GameBoard from "./components/GameBoard";
+import Client from "./Client";
 
 const App = () => {
   return (
     <div>
-      <GameBoard></GameBoard>
+      <Client></Client>
+      {/* <GameBoard></GameBoard>*/}
     </div>
   );
 };
